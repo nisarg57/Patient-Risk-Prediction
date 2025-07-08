@@ -4,7 +4,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
-import joblib # For saving/loading models
+import joblib
 
 def train_model(X_train, y_train, model_name='LogisticRegression', random_state=42):
     """
@@ -55,24 +55,3 @@ def load_model(filepath):
     model = joblib.load(filepath)
     print(f"Model loaded from {filepath}")
     return model
-
-if __name__ == '__main__':
-    # Example Usage (replace with your actual preprocessed and split data)
-    from sklearn.datasets import make_classification
-    X, y = make_classification(n_samples=1000, n_features=10, n_informative=5, n_redundant=0, random_state=42)
-    X_train_ex, X_test_ex, y_train_ex, y_test_ex = train_test_split(X, y, test_size=0.2, random_state=42)
-
-    print("Training Logistic Regression model...")
-    lr_model = train_model(X_train_ex, y_train_ex, model_name='LogisticRegression')
-    lr_metrics = evaluate_model(lr_model, X_test_ex, y_test_ex)
-    print("Logistic Regression Metrics:", lr_metrics)
-
-    print("\nTraining RandomForest model...")
-    rf_model = train_model(X_train_ex, y_train_ex, model_name='RandomForest')
-    rf_metrics = evaluate_model(rf_model, X_test_ex, y_test_ex)
-    print("RandomForest Metrics:", rf_metrics)
-
-    # Example of saving and loading
-    save_model(rf_model, 'random_forest_model.pkl')
-    loaded_rf_model = load_model('random_forest_model.pkl')
-    # Can then use loaded_rf_model for predictions
